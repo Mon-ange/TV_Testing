@@ -4,8 +4,9 @@ import { useFonts } from 'expo-font';
 import { Stack } from 'expo-router';
 import * as SplashScreen from 'expo-splash-screen';
 import { useEffect } from 'react';
-
+import { GluestackUIProvider, Text, Box } from "@gluestack-ui/themed"
 import { useColorScheme } from '@/components/useColorScheme';
+import { config } from "@gluestack-ui/config"
 
 export {
   // Catch any errors thrown by the Layout component.
@@ -40,7 +41,7 @@ export default function RootLayout() {
   if (!loaded) {
     return null;
   }
-
+ 
   return <RootLayoutNav />;
 }
 
@@ -48,11 +49,14 @@ function RootLayoutNav() {
   const colorScheme = useColorScheme();
 
   return (
-    <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
+    //<ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
+    <GluestackUIProvider config={config}>
       <Stack>
         <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
         <Stack.Screen name="modal" options={{ presentation: 'modal' }} />
       </Stack>
-    </ThemeProvider>
+    </GluestackUIProvider>
+    //</ThemeProvider>
+    
   );
 }
